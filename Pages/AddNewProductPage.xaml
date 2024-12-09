@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShopList.Pages.AddNewProductPage"
+             Title="AddNewProductPage">
+    <VerticalStackLayout>
+        <VerticalStackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center">
+            <Label 
+            Text="Add new Product"/>
+
+            <Entry x:Name="name" 
+               Text="{Binding ProductModel.Name}"
+               MaxLength="255"
+               Placeholder="Type name of your Product"
+               FontSize="18"
+               ClearButtonVisibility="WhileEditing"
+               IsTextPredictionEnabled="false"/>
+
+            <Entry x:Name="value" 
+                Text="{Binding ProductModel.Quanity}"
+                Keyboard="Numeric"
+                Placeholder="Type "
+                FontSize="18"
+                ClearButtonVisibility="WhileEditing"
+                IsTextPredictionEnabled="false"/>
+
+            <Picker 
+                x:Name="shopPicker"
+                Title="Select Shop"
+                SelectedItem="{Binding ProductModel.Shop}" 
+                ItemsSource="{Binding ShopStrings}"/>
+
+            <Picker 
+                x:Name="unitPicker"
+                Title="Select Unit"
+                SelectedItem="{Binding ProductModel.Unit}">
+                <Picker.Items>
+                    <x:String>kg</x:String>
+                    <x:String>g</x:String>
+                    <x:String>pcs</x:String>
+                    <x:String>l</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Picker 
+                x:Name="categoryPicker"
+                Title="Select Category"
+                SelectedItem="{Binding ProductModel.Category}"
+                ItemsSource="{Binding CategoryStrings}">
+            </Picker>
+
+            <HorizontalStackLayout>
+                <Label
+                    Text="Optional"
+                    HorizontalOptions="Center"     
+                    VerticalOptions="Center"/>
+
+                <CheckBox
+                    HorizontalOptions="Center"
+                    CheckedChanged="OnCheckBoxCheckedChanged"/>
+            </HorizontalStackLayout>
+
+
+            <Button Text="Add Product" Clicked="OnAddProductClicked"/>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

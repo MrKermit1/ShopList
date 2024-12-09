@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShopList.Views.ProductView">
+    <VerticalStackLayout 
+        Spacing="10"
+        BackgroundColor="{Binding BgColor}"
+        Margin="10"
+        VerticalOptions="Center">
+        <Label 
+            Text="{Binding Name}"
+            Padding="10" 
+            Margin="10"
+            FontSize="14"
+            HorizontalOptions="Center"/>
+
+        <Label 
+            Text="{Binding Category}"
+            Padding="5" 
+            Margin="5"
+            FontSize="14"
+            HorizontalOptions="Center"/>
+
+        <Label 
+            Text="{Binding Shop}"
+            Padding="5" 
+            Margin="5"
+            FontSize="14"
+            HorizontalOptions="Center"/>
+
+        <VerticalStackLayout Spacing="10">
+            <HorizontalStackLayout
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                <Label 
+                    Text="{Binding Quanity}" 
+                    FontSize="14"
+                    Grid.Column="1"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"/>
+                <Label 
+                    Text="{Binding Unit}" 
+                    FontSize="14"
+                    Grid.Column="1"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+            
+            <Grid 
+                ColumnSpacing="30" 
+                Padding="10"
+                HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ImageButton 
+                    Source="plus.png"
+                    Padding="10"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Clicked="OnIncrementClicked"
+                    />
+
+                <ImageButton 
+                    Source="minus.png"
+                    Padding="10"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Clicked="OnDecrementClicked" />
+            </Grid>
+
+            <Grid 
+                ColumnSpacing="30" 
+                Padding="10"
+                HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ImageButton 
+                    Source="delete.png" 
+                    Padding="10"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Clicked="OnDeleteClicked" />
+
+                <ImageButton 
+                    Source="done.png" 
+                    Padding="10"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    Clicked="OnDoneClicked" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentView>
