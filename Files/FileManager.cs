@@ -280,6 +280,19 @@ namespace ShopList.Files
             return false;
         }
 
+        public bool CheckIfCategoryExist(string name)
+        {
+            foreach (var category in LoadCategories())
+            {
+                if (category.Name == name)
+                {
+                    return true;
+                }
+            }
+
+            return false; 
+        }
+
         public ObservableCollection<ProductModel> ImportProducts(string path)
         {
             if (!File.Exists(path))
@@ -316,22 +329,31 @@ namespace ShopList.Files
         public void AddProduct(ProductModel newProduct)
         {
             var products = LoadProducts();
-            products.Add(newProduct);
-            SaveProducts(products);
+            if (!CheckIfProductExist(newProduct.Name))
+            {
+                products.Add(newProduct);
+                SaveProducts(products);
+            }
         }
 
         public void AddShop(ShopModel newShop)
         {
             var shops = LoadShops();
-            shops.Add(newShop);
-            SaveShops(shops);
+            if (!CheckIfShopExist(newShop.Name))
+            {
+                shops.Add(newShop);
+                SaveShops(shops);
+            }
         }
 
         public void AddCategory(CategoryModel newCategory)
         {
             var categories = LoadCategories();
-            categories.Add(newCategory);
-            SaveCategories(categories);
+            if (!CheckIfCategoryExist(newCategory.Name))
+            {
+                categories.Add(newCategory);
+                SaveCategories(categories);
+            }
         }
 
         //DELETE
