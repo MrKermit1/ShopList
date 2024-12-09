@@ -22,8 +22,13 @@ namespace ShopList.Pages
         private void FillProducts()
         {
             Products.Clear();
-            foreach (var product in FileManager.LoadProducts()) 
+            foreach (var product in FileManager.LoadProducts().Where(p => p.Check == false)) 
             { 
+                Products.Add(product);
+            }
+
+            foreach (var product in FileManager.LoadProducts().Where(p => p.Check == true))
+            {
                 Products.Add(product);
             }
         }
