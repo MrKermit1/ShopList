@@ -50,9 +50,19 @@ public partial class AddNewProductPage : ContentPage
         BindingContext = this;
 
     }
+
+    private bool LookForEmptyFields()
+    {
+        return
+            String.IsNullOrEmpty(ProductModel.Name) ||
+            String.IsNullOrEmpty(ProductModel.Unit) ||
+            String.IsNullOrEmpty(ProductModel.Shop) ||
+            String.IsNullOrEmpty(ProductModel.Category);
+    }
+
     private async void OnAddProductClicked(object sender, EventArgs e)
     {
-        if (ProductModel.Name.Trim() != "" && ProductModel.Category != null && ProductModel.Shop.Trim() != "")
+        if (!LookForEmptyFields())
         {
             if (FileManager.CheckIfProductExist(ProductModel.Name))
             {
@@ -86,4 +96,5 @@ public partial class AddNewProductPage : ContentPage
     {
         ProductModel.Optional = e.Value;
     }
+
 }

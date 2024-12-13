@@ -11,12 +11,13 @@
             Text="Add new Product"/>
 
             <Entry x:Name="name" 
-               Text="{Binding ProductModel.Name}"
-               MaxLength="255"
-               Placeholder="Type name of your Product"
-               FontSize="18"
-               ClearButtonVisibility="WhileEditing"
-               IsTextPredictionEnabled="false"/>
+                Text="{Binding ProductModel.Name}"
+                MaxLength="255"
+                Placeholder="Type name of your Product"
+                FontSize="18"
+                ClearButtonVisibility="WhileEditing"
+                IsTextPredictionEnabled="false"
+                MinimumWidthRequest="255"/>
 
             <Entry x:Name="value" 
                 Text="{Binding ProductModel.Quanity}"
@@ -24,7 +25,8 @@
                 Placeholder="Type "
                 FontSize="18"
                 ClearButtonVisibility="WhileEditing"
-                IsTextPredictionEnabled="false"/>
+                IsTextPredictionEnabled="false"
+                MinimumWidthRequest="255"/>
 
             <Picker 
                 x:Name="shopPicker"
@@ -41,6 +43,9 @@
                     <x:String>g</x:String>
                     <x:String>pcs</x:String>
                     <x:String>l</x:String>
+                    <x:String>ml</x:String>
+                    <x:String>m</x:String>
+                    <x:String>cm</x:String>
                 </Picker.Items>
             </Picker>
 
@@ -48,8 +53,8 @@
                 x:Name="categoryPicker"
                 Title="Select Category"
                 SelectedItem="{Binding ProductModel.Category}"
-                ItemsSource="{Binding CategoryStrings}">
-            </Picker>
+                ItemsSource="{Binding CategoryStrings}"/>
+
 
             <HorizontalStackLayout>
                 <Label
