@@ -54,8 +54,8 @@ public partial class AddNewRecipePage : ContentPage
             return;
 		}
 
-		FileManager.SaveRecipe(FileName, ProductsToRecipe);
-		FileManager.SaveRecipeDesc(FileName, Desc);
+		FileManager.AddRecipe(FileName, ProductsToRecipe);
+		FileManager.AddRecipeDescription(FileName, Desc);
 
 		string msg = string.Empty;
 		foreach (var product in ProductsToRecipe)

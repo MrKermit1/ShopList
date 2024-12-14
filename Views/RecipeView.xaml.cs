@@ -87,4 +87,9 @@ public partial class RecipeView : ContentView
         FileManager.DeleteRecipeByName(RecipeModel.Name);
         Refresh();
     }
+
+    private void OnQuestionClicked(object sender, EventArgs e)
+    {
+        Application.Current.MainPage.DisplayAlert("Recipe Description", FileManager.LoadRecipeDescription(RecipeModel.Name), "OK");
+    }
 }

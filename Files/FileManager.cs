@@ -87,7 +87,11 @@ namespace ShopList.Files
         public void SaveRecipe(string fileName, ObservableCollection<ProductModel> products)
         {
             var path = Path.Combine(recipesPath, fileName + ".xml");
-            CreateXml(path, "products");
+
+            if (!File.Exists(shopsPath))
+            {
+                CreateXml(path, "products");
+            }
 
             XmlSerializer serializer = new(typeof(List<ProductModel>), new XmlRootAttribute("products"));
 
@@ -100,7 +104,11 @@ namespace ShopList.Files
         public void SaveRecipeDesc(string fileName, string desc)
         {
             var path = Path.Combine(recipesDescriptionsPath, fileName + ".xml");
-            CreateXml(path, "descriptions");
+
+            if (!File.Exists(path))
+            {
+                CreateXml(path, "descriptions");
+            }
 
             XmlSerializer serializer = new(typeof(string), new XmlRootAttribute("descriptions"));
 
@@ -193,19 +201,19 @@ namespace ShopList.Files
             return fileNames;
         }
 
-        public ObservableCollection<string> LoadRecipeDescription(string recipe)
+        public string LoadRecipeDescription(string recipe)
         {
             if (!File.Exists(categoriesPath))
             {
-                return new ObservableCollection<string>();
+                return "none";
             }
 
-            XmlSerializer serializer = new(typeof(List<string>), new XmlRootAttribute("descriptions"));
+            XmlSerializer serializer = new(typeof(string), new XmlRootAttribute("descriptions"));
 
-            using (StreamReader reader = new(recipesDescriptionsPath + recipe + ".xml"))
+            using (StreamReader reader = new(Path.Combine(recipesDescriptionsPath, recipe + ".xml")))
             {
-                List<string> descriptions = (List<string>)serializer.Deserialize(reader);
-                return new ObservableCollection<string>(descriptions);
+                string description = (string)serializer.Deserialize(reader);
+                return description;
             }
         }
 
@@ -386,6 +394,22 @@ namespace ShopList.Files
             }
         }
 
+        public void AddRecipe(string fileName, ObservableCollection<ProductModel> products)
+        {
+            if (!CheckIfRecipeExist(fileName))
+            {
+                SaveRecipe(fileName, products);
+            }
+        }
+
+        public void AddRecipeDescription(string fileName, string desc)
+        {
+            if (!File.Exists(Path.Combine(recipesDescriptionsPath, fileName + ".xml")))
+            {
+                SaveRecipeDesc(fileName, desc);
+            }
+        }
+
         //DELETE
 
         public void DeleteProductByName(string name)
@@ -405,6 +429,7 @@ namespace ShopList.Files
         public void DeleteRecipeByName(string name)
         {
             File.Delete(Path.Combine(recipesPath, name + ".xml"));
+            File.Delete(Path.Combine(recipesDescriptionsPath, name + ".xml"));
         }
 
         //UPDATE
