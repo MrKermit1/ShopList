@@ -15,7 +15,6 @@ namespace ShopList.Models
 
         [XmlAttribute("Name")]
         public string Name { get; set; } = String.Empty;
-
         public void FillProducts()
         {
             FileManager fileManager = new();
