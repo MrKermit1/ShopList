@@ -11,11 +11,13 @@ public partial class AddNewRecipePage : ContentPage
 	public ObservableCollection<ProductModel> ProductsToRecipe { get; set; } = new();
 
 	public string FileName { get; set; }
+	public string Desc { get; set; }
 
 	public AddNewRecipePage()
 	{
 		InitializeComponent();
 		BindingContext = this;
+
 		FillProducts();
 	}
 
@@ -53,6 +55,7 @@ public partial class AddNewRecipePage : ContentPage
 		}
 
 		FileManager.SaveRecipe(FileName, ProductsToRecipe);
+		FileManager.SaveRecipeDesc(FileName, Desc);
 
 		string msg = string.Empty;
 		foreach (var product in ProductsToRecipe)
@@ -63,5 +66,10 @@ public partial class AddNewRecipePage : ContentPage
 		DisplayAlert("Added Recipe", "Products from Recipe:" + msg, "OK");
 
 		Shell.Current.GoToAsync("//MainPage");
+    }
+
+    private void OnEditorTextChanged(object sender, TextChangedEventArgs e)
+    {
+		Desc = ((Editor)sender).Text;
     }
 }

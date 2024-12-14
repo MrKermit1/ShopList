@@ -14,6 +14,11 @@
             IsTextPredictionEnabled="false"
         />
 
+        <Editor
+            Placeholder="Enter your recipe here"
+            HeightRequest="200"
+            TextChanged="OnEditorTextChanged"/>
+
         <CollectionView ItemsSource="{Binding Products}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -21,14 +26,12 @@
                         <Label
                             Text="{Binding Name}"
                             HorizontalOptions="Center"     
-                            VerticalOptions="Center"
-                        />
+                            VerticalOptions="Center"/>
 
                         <CheckBox
                             HorizontalOptions="Center"
                             x:Name="{Binding Name}"
-                            CheckedChanged="OnProductCheckedChanged"
-                        />
+                            CheckedChanged="OnProductCheckedChanged"/>
                     </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

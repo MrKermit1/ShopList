@@ -19,6 +19,7 @@ namespace ShopList.Files
         private static readonly string categoriesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "categories.xml");
         private static readonly string exportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "exports");
         private static readonly string recipesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "recipes");
+        private static readonly string recipesDescriptionsPath = Path.Combine(recipesPath, "desc");
 
         public FileManager(){}
 
@@ -93,6 +94,19 @@ namespace ShopList.Files
             using (StreamWriter writer = new(path))
             {
                 serializer.Serialize(writer, new List<ProductModel>(products));
+            }
+        }
+
+        public void SaveRecipeDesc(string fileName, string desc)
+        {
+            var path = Path.Combine(recipesDescriptionsPath, fileName + ".xml");
+            CreateXml(path, "descriptions");
+
+            XmlSerializer serializer = new(typeof(string), new XmlRootAttribute("descriptions"));
+
+            using (StreamWriter writer = new(path))
+            {
+                serializer.Serialize(writer, desc);
             }
         }
 
@@ -177,6 +191,22 @@ namespace ShopList.Files
             }
 
             return fileNames;
+        }
+
+        public ObservableCollection<string> LoadRecipeDescription(string recipe)
+        {
+            if (!File.Exists(categoriesPath))
+            {
+                return new ObservableCollection<string>();
+            }
+
+            XmlSerializer serializer = new(typeof(List<string>), new XmlRootAttribute("descriptions"));
+
+            using (StreamReader reader = new(recipesDescriptionsPath + recipe + ".xml"))
+            {
+                List<string> descriptions = (List<string>)serializer.Deserialize(reader);
+                return new ObservableCollection<string>(descriptions);
+            }
         }
 
         public ObservableCollection<ProductModel> LoadProductsFromRecipe(string name)
