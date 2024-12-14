@@ -7,7 +7,8 @@ public partial class ShopsPage : ContentPage
     public FileManager FileManager { get; set; } = new();
     public ObservableCollection<ShopModel> Shops { get; set; } = new();
 
-    private void FillShops()
+    public static ShopsPage Instance { get; set; }
+    public void FillShops()
     {
         Shops.Clear();
         foreach (var shop in FileManager.LoadShops())
@@ -23,6 +24,7 @@ public partial class ShopsPage : ContentPage
     public ShopsPage()
 	{
 		InitializeComponent();
+        Instance = this;
         BindingContext = this;
         FillShops();
 	}

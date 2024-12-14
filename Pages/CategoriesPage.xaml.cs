@@ -6,15 +6,17 @@ using System.Collections.ObjectModel;
 public partial class CategoriesPage : ContentPage
 {
 	public FileManager FileManager { get; set; } = new();
+    public static CategoriesPage Instance { get; set; }
     public ObservableCollection<CategoryModel> Categories { get; set; } = new();
     public CategoriesPage()
 	{
 		InitializeComponent();
+        Instance = this;
         BindingContext = this;
         FillCategories();
     }
 
-    private void FillCategories()
+    public void FillCategories()
     {
         Categories.Clear();
         foreach (var category in FileManager.LoadCategories())

@@ -7,15 +7,17 @@ public partial class RecipesPage : ContentPage
 {
     public FileManager FileManager { get; set; } = new();
     public ObservableCollection<RecipeModel> Recipes { get; set; } = new();
+    public static RecipesPage Instance { get; set; }
 
     public RecipesPage()
 	{
 		InitializeComponent();
+        Instance = this;
         BindingContext = this;
         FillRecipes();
     }
 
-    private void FillRecipes()
+    public void FillRecipes()
     {
         foreach (var name in FileManager.LoadRecipesNames())
         {

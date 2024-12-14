@@ -34,54 +34,39 @@ public partial class ProductView : ContentView
 
         if (currentRoute ==  "//MainPage")
         {
-            if (navigationStack.Count > 0)
+            if (MainPage.Instance != null)
             {
-                var oldMainPage = navigationStack.LastOrDefault(p => p is MainPage);
-
-                if (oldMainPage != null)
-                {
-                    Navigation.RemovePage(oldMainPage);
-                }
+                MainPage.Instance.FillProducts();
             }
-
-            var main = new MainPage();
-            await Navigation.PushAsync(main);
-            await Shell.Current.GoToAsync("//MainPage");
+            else
+            {
+                await Shell.Current.GoToAsync("//MainPage");
+            }
         }
 
         if (currentRoute == "//MainPage/CategoriesPage")
         {
-            if (navigationStack.Count > 0)
+            if (CategoriesPage.Instance != null)
             {
-                var oldMainPage = navigationStack.LastOrDefault(p => p is CategoriesPage);
-
-                if (oldMainPage != null)
-                {
-                    Navigation.RemovePage(oldMainPage);
-                }
+                CategoriesPage.Instance.FillCategories();
             }
-
-            var main = new CategoriesPage();
-            await Navigation.PushAsync(main);
-            await Shell.Current.GoToAsync("CategoriesPage");
+            else
+            {
+                await Shell.Current.GoToAsync("CategoriesPage");
+            }
         }
 
         if (currentRoute == "//MainPage/ShopsPage")
         {
 
-            if (navigationStack.Count > 0)
+            if (ShopsPage.Instance != null)
             {
-                var oldMainPage = navigationStack.LastOrDefault(p => p is ShopsPage);
-
-                if (oldMainPage != null)
-                {
-                    Navigation.RemovePage(oldMainPage);
-                }
+                ShopsPage.Instance.FillShops();
             }
-
-            var main = new ShopsPage();
-            await Navigation.PushAsync(main);
-            await Shell.Current.GoToAsync("ShopsPage");
+            else
+            {
+                await Shell.Current.GoToAsync("ShopsPage");
+            }
         }
 
     }

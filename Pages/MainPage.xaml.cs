@@ -5,21 +5,23 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using CommunityToolkit.Maui.Storage;
 using System.Linq;
+using System.ComponentModel;
 namespace ShopList.Pages
 {
     public partial class MainPage : ContentPage
     {
-        public ObservableCollection<ProductModel> Products { get; set; } = new();
-        public FileManager FileManager { get; set; } = new();
-        public string SortBy {  get; set; } = String.Empty;
+        public  ObservableCollection<ProductModel> Products { get; set; } = new();
+        public  FileManager FileManager { get; set; } = new();
+        public static MainPage Instance { get; set; }
         public MainPage()
         {
             InitializeComponent();
+            Instance = this;
             BindingContext = this;
             FillProducts();
         }
 
-        private void FillProducts()
+        public void FillProducts()
         {
             Products.Clear();
             foreach (var product in FileManager.LoadProducts().Where(p => p.Check == false)) 
@@ -128,6 +130,12 @@ namespace ShopList.Pages
                 }
 
             }
+        }
+
+        private void OnClearFilters(object sender, EventArgs e)
+        {
+            FillProducts();
+
         }
     }
 

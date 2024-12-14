@@ -40,20 +40,30 @@
 
         <ScrollView Grid.Column="1">
             <VerticalStackLayout>
-                <Picker 
-                    x:Name="sortPicker"
-                    Title="Sort by"
-                    SelectedIndexChanged="SortMethodChange">
-                    
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Name</x:String>
-                            <x:String>Category</x:String>
-                            <x:String>Quanity Descending</x:String>
-                            <x:String>Quanity Ascending</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+
+                <HorizontalStackLayout>
+                    <Picker 
+                        x:Name="sortPicker"
+                        Title="Sort by"
+                        SelectedIndexChanged="SortMethodChange"
+                        MinimumWidthRequest="100">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Name</x:String>
+                                <x:String>Category</x:String>
+                                <x:String>Quanity Descending</x:String>
+                                <x:String>Quanity Ascending</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+
+                    <Button
+                        Text="Clear filters"
+                        Clicked="OnClearFilters"/>
+
+                </HorizontalStackLayout>
+                
+
                 
                 <CollectionView ItemsSource="{Binding Products}">
                     <CollectionView.ItemTemplate>
