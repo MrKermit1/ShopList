@@ -92,7 +92,14 @@ namespace ShopList.Pages
 
         private async void OnExport(object sender, EventArgs e)
         {
-            await SaveFile(CancellationToken.None);
+            if (Products.Count() != 0)
+            {
+                await SaveFile(CancellationToken.None);
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Export info", "There is no products to export", "OK");
+            }
         }
         private async void OnRecipes(object sender, EventArgs e)
         {
