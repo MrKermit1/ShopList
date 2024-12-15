@@ -58,7 +58,7 @@ namespace ShopList.Files
         {
             if (!File.Exists(shopsPath))
             {
-                CreateXml(productsPath, "shops");
+                CreateXml(shopsPath, "shops");
             }
 
             XmlSerializer serializer = new(typeof(List<ShopModel>), new XmlRootAttribute("shops"));
