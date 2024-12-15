@@ -71,9 +71,9 @@ namespace ShopList.Files
 
         public void SaveCategories(ObservableCollection<CategoryModel> categories)
         {
-            if (!File.Exists(shopsPath))
+            if (!File.Exists(categoriesPath))
             {
-                CreateXml(productsPath, "shops");
+                CreateXml(productsPath, "categories");
             }
 
             XmlSerializer serializer = new(typeof(List<CategoryModel>), new XmlRootAttribute("categories"));
