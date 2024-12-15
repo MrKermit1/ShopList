@@ -58,16 +58,14 @@ public partial class RecipeView : ContentView
     {
         var navigationStack = Navigation.NavigationStack;
         var currentRoute = Shell.Current?.CurrentState?.Location?.ToString();
-        if (currentRoute == "//MainPage/RecipesPage")
+
+        if (RecipesPage.Instance != null)
         {
-            if (RecipesPage.Instance != null)
-            {
-                RecipesPage.Instance.FillRecipes();
-            }
-            else
-            {
-                await Shell.Current.GoToAsync("RecipesPage");
-            }
+            RecipesPage.Instance.FillRecipes();
+        }
+        else
+        {
+            await Shell.Current.GoToAsync("RecipesPage");
         }
     }
 

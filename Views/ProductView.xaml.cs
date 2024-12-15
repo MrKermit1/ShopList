@@ -32,43 +32,39 @@ public partial class ProductView : ContentView
         var navigationStack = Navigation.NavigationStack;
         var currentRoute = Shell.Current?.CurrentState?.Location?.ToString();
 
-        if (currentRoute ==  "//MainPage")
+        switch (currentRoute)
         {
-            if (MainPage.Instance != null)
-            {
-                MainPage.Instance.FillProducts();
-            }
-            else
-            {
-                await Shell.Current.GoToAsync("//MainPage");
-            }
+            case "//MainPage":
+                if (MainPage.Instance != null)
+                {
+                    MainPage.Instance.FillProducts();
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync("//MainPage");
+                }
+                break;
+            case "//MainPage/CategoriesPage":
+                if (CategoriesPage.Instance != null)
+                {
+                    CategoriesPage.Instance.FillCategories();
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync("CategoriesPage");
+                }
+                break;
+            case "//MainPage/ShopsPage":
+                if (ShopsPage.Instance != null)
+                {
+                    ShopsPage.Instance.FillShops();
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync("ShopsPage");
+                }
+                break ;
         }
-
-        if (currentRoute == "//MainPage/CategoriesPage")
-        {
-            if (CategoriesPage.Instance != null)
-            {
-                CategoriesPage.Instance.FillCategories();
-            }
-            else
-            {
-                await Shell.Current.GoToAsync("CategoriesPage");
-            }
-        }
-
-        if (currentRoute == "//MainPage/ShopsPage")
-        {
-
-            if (ShopsPage.Instance != null)
-            {
-                ShopsPage.Instance.FillShops();
-            }
-            else
-            {
-                await Shell.Current.GoToAsync("ShopsPage");
-            }
-        }
-
     }
 
     public ProductView(ProductModel	model)
