@@ -18,6 +18,7 @@ namespace ShopList.Pages
             InitializeComponent();
             Instance = this;
             BindingContext = this;
+            sortPicker.SelectedIndex = 0;
             FillProducts();
         }
 
@@ -107,15 +108,18 @@ namespace ShopList.Pages
                 switch (selectedIndex)
                 {
                     case 0:
-                        sortedProducts = Products.OrderBy(p => p.Name);
+                        FillProducts();
                         break;
                     case 1:
-                        sortedProducts = Products.OrderBy(p => p.Category);
+                        sortedProducts = Products.OrderBy(p => p.Name);
                         break;
                     case 2:
-                        sortedProducts = Products.OrderByDescending(p => p.Quanity);
+                        sortedProducts = Products.OrderBy(p => p.Category);
                         break;
                     case 3:
+                        sortedProducts = Products.OrderByDescending(p => p.Quanity);
+                        break;
+                    case 4:
                         sortedProducts = Products.OrderBy(p => p.Quanity);
                         break;
                     default:
@@ -130,12 +134,6 @@ namespace ShopList.Pages
                 }
 
             }
-        }
-
-        private void OnClearFilters(object sender, EventArgs e)
-        {
-            FillProducts();
-
         }
     }
 

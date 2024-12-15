@@ -41,14 +41,18 @@
         <ScrollView Grid.Column="1">
             <VerticalStackLayout>
 
-                <HorizontalStackLayout>
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Padding="10">
                     <Picker 
                         x:Name="sortPicker"
                         Title="Sort by"
                         SelectedIndexChanged="SortMethodChange"
-                        MinimumWidthRequest="100">
+                        MinimumWidthRequest="200"
+                        SelectedIndex="0">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
+                                <x:String>None</x:String>
                                 <x:String>Name</x:String>
                                 <x:String>Category</x:String>
                                 <x:String>Quanity Descending</x:String>
@@ -56,11 +60,6 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
-
-                    <Button
-                        Text="Clear filters"
-                        Clicked="OnClearFilters"/>
-
                 </HorizontalStackLayout>
                 
 
