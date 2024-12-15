@@ -6,6 +6,8 @@ using System.Windows.Markup;
 using CommunityToolkit.Maui.Storage;
 using System.Linq;
 using System.ComponentModel;
+using System.Text;
+using System.Xml.Serialization;
 namespace ShopList.Pages
 {
     public partial class MainPage : ContentPage
@@ -41,6 +43,28 @@ namespace ShopList.Pages
             FillProducts();
         }
 
+
+        async Task SaveFile(CancellationToken cancellationToken)
+        {
+            var serializer = new XmlSerializer(typeof(List<ProductModel>));
+            using var stream = new MemoryStream();
+            using (var writer = new StreamWriter(stream, Encoding.Default, leaveOpen: true))
+            {
+                serializer.Serialize(writer, new List<ProductModel>(FileManager.LoadProducts()));
+            }
+
+            var fileSaverResult = await FileSaver.Default.SaveAsync("list.xml", stream, cancellationToken);
+            if (fileSaverResult.IsSuccessful)
+            {
+                await Shell.Current.DisplayAlert("Export info", "The file was saved successfully", "OK");
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Export info", $"The file was not saved successfully with error: {fileSaverResult.Exception.Message}", "OK");
+            }
+        }
+
+
         private async void OnAddNewProduct(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("AddNewProductPage");
@@ -68,7 +92,7 @@ namespace ShopList.Pages
 
         private async void OnExport(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("ExportPage");
+            await SaveFile(CancellationToken.None);
         }
         private async void OnRecipes(object sender, EventArgs e)
         {
