@@ -15,10 +15,8 @@ namespace ShopList
             Routing.RegisterRoute(nameof(AddNewCategoryPage), typeof(AddNewCategoryPage));
             Routing.RegisterRoute(nameof(CategoriesPage), typeof(CategoriesPage));
             Routing.RegisterRoute(nameof(ShopsPage), typeof(ShopsPage));
-            Routing.RegisterRoute(nameof(ExportPage), typeof(ExportPage));
             Routing.RegisterRoute(nameof(RecipesPage), typeof(RecipesPage));
             Routing.RegisterRoute(nameof(AddNewRecipePage), typeof(AddNewRecipePage));
-
         }
     }
 }
