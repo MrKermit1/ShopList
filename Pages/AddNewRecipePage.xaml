@@ -4,6 +4,7 @@
              x:Class="ShopList.Pages.AddNewRecipePage"
              Title="AddNewRecipe"
              xmlns:views="clr-namespace:ShopList.Views">
+    <ScrollView>
     <VerticalStackLayout>
         <Entry x:Name="name" 
             Text="{Binding FileName}"
@@ -11,8 +12,7 @@
             Placeholder="Type name of your Recipe"
             FontSize="18"
             ClearButtonVisibility="WhileEditing"
-            IsTextPredictionEnabled="false"
-        />
+            IsTextPredictionEnabled="false"/>
 
         <Editor
             Placeholder="Enter your recipe here"
@@ -37,9 +37,13 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+
+
+
         <Button 
             Text="Add Recipe"
             Clicked="AddRecipeClicked"
         />
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

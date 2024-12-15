@@ -14,7 +14,7 @@ public partial class AddNewProductPage : ContentPage
     public void FillCategories()
     {
         CategoryStrings.Clear();
-        foreach (var category in FileManager.LoadCategories())
+        foreach (var category in FileManager.LoadCategories().OrderBy(c => c.Name))
         {
             CategoryStrings.Add(category.Name);
         }
@@ -23,7 +23,7 @@ public partial class AddNewProductPage : ContentPage
     public void FillShops()
     {
         ShopStrings.Clear();
-        foreach (var shop in FileManager.LoadShops())
+        foreach (var shop in FileManager.LoadShops().OrderBy(s => s.Name))
         {
             ShopStrings.Add(shop.Name);
         }
