@@ -19,6 +19,7 @@ public partial class RecipesPage : ContentPage
 
     public void FillRecipes()
     {
+        Recipes.Clear();
         foreach (var name in FileManager.LoadRecipesNames())
         {
             RecipeModel model = new RecipeModel

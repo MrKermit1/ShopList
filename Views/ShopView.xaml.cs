@@ -43,6 +43,7 @@ public partial class ShopView : ContentView
         InitializeComponent();
         ShopModel = new();
         BindingContext = this;
+        sortPicker.SelectedIndex = 0;
         FillProducts();
     }
 
@@ -50,6 +51,7 @@ public partial class ShopView : ContentView
     {
         InitializeComponent();
         BindingContext = this;
+        sortPicker.SelectedIndex = 0;
         ShopModel = model;
         FillProducts();
     }
@@ -67,15 +69,18 @@ public partial class ShopView : ContentView
             switch (selectedIndex)
             {
                 case 0:
-                    sortedProducts = ShopModel.Products.OrderBy(p => p.Name);
+                    FillProducts();
                     break;
                 case 1:
-                    sortedProducts = ShopModel.Products.OrderBy(p => p.Category);
+                    sortedProducts = ShopModel.Products.OrderBy(p => p.Name);
                     break;
                 case 2:
-                    sortedProducts = ShopModel.Products.OrderByDescending(p => p.Quanity);
+                    sortedProducts = ShopModel.Products.OrderBy(p => p.Category);
                     break;
                 case 3:
+                    sortedProducts = ShopModel.Products.OrderByDescending(p => p.Quanity);
+                    break;
+                case 4:
                     sortedProducts = ShopModel.Products.OrderBy(p => p.Quanity);
                     break;
                 default:

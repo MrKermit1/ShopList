@@ -42,6 +42,7 @@ public partial class CategoryView : ContentView
 	{
 		InitializeComponent();
         CategoryModel = new();
+        sortPicker.SelectedIndex = 0;
         BindingContext = this;
         FillProducts();
 	}
@@ -50,6 +51,7 @@ public partial class CategoryView : ContentView
     {
         InitializeComponent();
         BindingContext = this;
+        sortPicker.SelectedIndex = 0;
         CategoryModel = model;
         FillProducts();
     }
@@ -67,10 +69,10 @@ public partial class CategoryView : ContentView
             switch (selectedIndex)
             {
                 case 0:
-                    sortedProducts = CategoryModel.Products.OrderBy(p => p.Name);
+                    FillProducts();
                     break;
                 case 1:
-                    sortedProducts = CategoryModel.Products.OrderBy(p => p.Category);
+                    sortedProducts = CategoryModel.Products.OrderBy(p => p.Name);
                     break;
                 case 2:
                     sortedProducts = CategoryModel.Products.OrderByDescending(p => p.Quanity);

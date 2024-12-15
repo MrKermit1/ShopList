@@ -58,7 +58,6 @@ public partial class RecipeView : ContentView
     {
         var navigationStack = Navigation.NavigationStack;
         var currentRoute = Shell.Current?.CurrentState?.Location?.ToString();
-
         if (currentRoute == "//MainPage/RecipesPage")
         {
             if (RecipesPage.Instance != null)
@@ -85,6 +84,7 @@ public partial class RecipeView : ContentView
     private void OnDeleteClicked(object sender, EventArgs e)
     {
         FileManager.DeleteRecipeByName(RecipeModel.Name);
+        Refresh();
         Refresh();
     }
 

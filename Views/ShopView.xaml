@@ -20,6 +20,7 @@
                     SelectedIndexChanged="SortMethodChange">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
+                            <x:String>None</x:String>
                             <x:String>Name</x:String>
                             <x:String>Category</x:String>
                             <x:String>Quanity Descending</x:String>
