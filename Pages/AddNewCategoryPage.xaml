@@ -13,7 +13,7 @@
             FontSize="18"
             ClearButtonVisibility="WhileEditing"
             IsTextPredictionEnabled="false"
-        />
+            MinimumWidthRequest="255"/>
         <Button Text="Add Category" Clicked="OnAddCategoryClicked"/>
     </VerticalStackLayout>
 </ContentPage>
