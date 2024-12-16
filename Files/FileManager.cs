@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using ShopList.Models;
+using System.Reflection.PortableExecutable;
 
 namespace ShopList.Files
 {
@@ -331,6 +332,40 @@ namespace ShopList.Files
             return false; 
         }
 
+        public bool CheckRoot(StreamReader reader, string root)
+        {
+            using (XmlReader xmlReader = XmlReader.Create(reader))
+            {
+                xmlReader.MoveToContent(); // Move to the root element
+
+                // Validate the root element name
+                if (xmlReader.Name != root)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public bool CheckIfEmptyXml(string path)
+        {
+
+            using(StreamReader reader = new(path))
+            {
+                var xmlDocument = new XmlDocument();
+                xmlDocument.Load(reader.BaseStream);
+
+                if (xmlDocument.DocumentElement != null && !xmlDocument.DocumentElement.HasChildNodes)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+        }
+
         public ObservableCollection<ProductModel> ImportProducts(string path)
         {
             if (!File.Exists(path))
@@ -342,6 +377,22 @@ namespace ShopList.Files
 
             using (StreamReader reader = new(path))
             {
+                if (!CheckRoot(reader, "products"))
+                {
+                    return new ObservableCollection<ProductModel>();
+                }
+
+                //sprawdza czy xml ma jakieś elementy
+                if (CheckIfEmptyXml(path))
+                {
+                    return new ObservableCollection<ProductModel>();
+                }
+
+
+                //reset readera po sprawdzeniu roota
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+                reader.DiscardBufferedData();
+
                 List<ProductModel> products = (List<ProductModel>)serializer.Deserialize(reader);
 
                 if (CheckProductsName(products))
