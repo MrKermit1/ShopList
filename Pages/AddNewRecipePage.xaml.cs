@@ -17,7 +17,6 @@ public partial class AddNewRecipePage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = this;
-
 		FillProducts();
 	}
 

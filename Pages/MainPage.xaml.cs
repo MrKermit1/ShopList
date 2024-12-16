@@ -116,7 +116,7 @@ namespace ShopList.Pages
             {
                 if (FileManager.ImportProducts(result.FullPath).Count() == 0)
                 {
-                    await DisplayAlert("Import info", "Import error", "OK");
+                    await DisplayAlert("Import info", "Import failed", "OK");
                     return;
                 }
 
@@ -129,7 +129,7 @@ namespace ShopList.Pages
             }
             else 
             {
-                await DisplayAlert("Import info", "Import error", "OK");
+                await DisplayAlert("Import info", "Import failed", "OK");
             }
         }
 
