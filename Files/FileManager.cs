@@ -267,19 +267,6 @@ namespace ShopList.Files
             }
         }
 
-        private bool CheckProductsName(List<ProductModel> productToCheck)
-        {
-            foreach (var product in productToCheck)
-            {
-                if (LoadProducts().Where(p => p.Name == product.Name).Count() > 0)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public bool CheckIfProductExist(string name)
         {
             foreach (var product in LoadProducts())
@@ -363,7 +350,22 @@ namespace ShopList.Files
 
                 return false;
             }
+        }
 
+        public bool CheckValidXml(string path)
+        {
+            try
+            {
+                using (var reader = XmlReader.Create(path))
+                {
+                    while (reader.Read()) { }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public ObservableCollection<ProductModel> ImportProducts(string path)
@@ -373,10 +375,23 @@ namespace ShopList.Files
                 return new ObservableCollection<ProductModel>();
             }
 
+            //czy plik jest pusty?
+            if (new FileInfo(path).Length == 0)
+            {
+                return new ObservableCollection<ProductModel>();
+            }
+
             XmlSerializer serializer = new(typeof(List<ProductModel>), new XmlRootAttribute("products"));
 
             using (StreamReader reader = new(path))
             {
+                //czy plik jest zgodny ze "standardem" xml'a
+                if (!CheckValidXml(path))
+                {
+                    return new ObservableCollection<ProductModel>();
+                }
+
+                //czy xml ma element products? 
                 if (!CheckRoot(reader, "products"))
                 {
                     return new ObservableCollection<ProductModel>();
@@ -394,11 +409,6 @@ namespace ShopList.Files
                 reader.DiscardBufferedData();
 
                 List<ProductModel> products = (List<ProductModel>)serializer.Deserialize(reader);
-
-                if (CheckProductsName(products))
-                {
-                    return new ObservableCollection<ProductModel>();
-                }
 
                 //sprawdz czy nie ma kategorii lub sklepu których nie ma w zasobach
                 CheckCategories(products);
