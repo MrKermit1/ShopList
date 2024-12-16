@@ -12,8 +12,8 @@ namespace ShopList.Pages
 {
     public partial class MainPage : ContentPage
     {
-        public  ObservableCollection<ProductModel> Products { get; set; } = new();
-        public  FileManager FileManager { get; set; } = new();
+        public ObservableCollection<ProductModel> Products { get; set; } = new();
+        public FileManager FileManager { get; set; } = new();
         public static MainPage Instance { get; set; }
         public MainPage()
         {
@@ -46,7 +46,7 @@ namespace ShopList.Pages
 
         async Task SaveFile(CancellationToken cancellationToken)
         {
-            var serializer = new XmlSerializer(typeof(List<ProductModel>));
+            var serializer = new XmlSerializer(typeof(List<ProductModel>), new XmlRootAttribute("products"));
             using var stream = new MemoryStream();
             using (var writer = new StreamWriter(stream, Encoding.Default, leaveOpen: true))
             {
@@ -114,15 +114,22 @@ namespace ShopList.Pages
             var result = await FilePicker.Default.PickAsync(default);
             if (result !=null && result.FileName.EndsWith("xml", StringComparison.OrdinalIgnoreCase))
             {
+                if (FileManager.ImportProducts(result.FullPath).Count() == 0)
+                {
+                    await DisplayAlert("Import info", "Import error", "OK");
+                    return;
+                }
+
                 foreach (var product in FileManager.ImportProducts(result.FullPath))
                 {
-                    Products.Add(product);
+                    FileManager.AddProduct(product);
                 }
+                FillProducts();
                 await DisplayAlert("Import info", "Import done", "OK");
             }
             else 
             {
-                await DisplayAlert("Import info", "Import error ", "OK");
+                await DisplayAlert("Import info", "Import error", "OK");
             }
         }
 
